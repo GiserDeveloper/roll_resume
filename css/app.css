@@ -1,0 +1,282 @@
+body{
+    background: #3acfff;
+}
+
+.page{
+    height: 24000px;
+}
+
+.content{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /*overflow 属性规定当内容溢出元素框时发生的事情 hidden表示内容会被修剪，并且其余内容是不可见的。*/
+    overflow: hidden;
+}
+
+/*背景层总体样式*/
+.layer-horizontal{
+    /*因为要移动 所以绝对定位*/
+    position: absolute;
+    width: 20000px;
+    height: 100%;
+    /*通过left调整背景位置*/
+    left: 0;
+    top: 0;
+}
+
+/*云 图层样式*/
+/*此处有坑 取到子元素必须空格打点*/
+.layer-horizontal .cloud{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: url('../images/cloud.png');
+}
+
+/*土地*/
+.layer-horizontal .background{
+    position: absolute;
+    /*最底下*/
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url('../images/background.png');
+}
+
+.layer-horizontal .mountain{
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 100%;
+    height: 800px;
+    background: url(../images/mountain.png);
+    background-size: auto 800px;
+}
+
+.layer-horizontal .trees{
+    position: absolute;
+    bottom: 90px;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    background: url(../images/trees.png);
+    background-size: auto 300px;
+}
+
+/*人物的div*/
+#people-container{
+    /*fixed与屏幕滚动无关 相当于小广告原理*/
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    left: 50px;
+    bottom: 70px;
+    /*overhidden实现了图片部分显示*/
+    overflow: hidden;
+}
+
+.people{
+    /*相对于父容器定位*/
+    position: absolute;
+    width: 800px;
+    height: 400px;
+    left: 0;
+    top: 0;
+    background: url('../images/people.png') no-repeat;
+}
+
+/*loading样式 */
+.loading{
+    /*display: none;*/
+    position: absolute;
+    background: #3ad0ff;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /*z-index 属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。*/
+    z-index: 100;
+}
+
+/*通过 @keyframes 规则创建动画*/
+@keyframes loadingScale{
+    /*loading加载的初始状态*/
+    0%{
+        transform: scale(1);
+        background: #fff;
+    }
+    /*结束状态 自动补间动画*/
+    100%{
+        transform: scale(.3);
+        background: #c1c1c1;
+    }
+}
+
+@keyframes shine{
+    0%{
+        /*可见度设置*/
+        opacity: 1;
+    }
+    100%{
+        opacity:0.2;
+    }
+}
+
+.loading-circle_list{
+    /*相对于父容器的绝对定位 这里父容器是html页面*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /*定义2D转换*/
+    /*相对于自身 往左边和上边移动50% 使三个圆居中*/
+    transform: translate(-50% , -50%); 
+}
+
+/*公共类名*/
+.loading-circle{
+    width: 40px;
+    height: 40px;
+    /*设置为圆形 45度 */
+    border-radius: 50%;
+    /*外边距 这里指圆与圆之间的间隔*/
+    margin-right: 12px;
+    /*设置为行内块元素 并排排列*/
+    display: inline-block;
+    /*三个字符表示颜色 空间更小*/
+    background-color: #fff;
+    /* 动画 */
+    animation-name: loadingScale;
+    animation-duration: 1.2s;
+    animation-timing-function: linear;
+    /*动画无限循环*/
+    animation-iteration-count: infinite;
+}
+
+/*3个圆分别实现动画 间隔0.4s*/
+.loading-circle-left{
+    /*第一个圆即刻开始动画 后面的圆间隔开始 创造loading加载效果*/
+    animation-delay: 0s;
+}
+
+.loading-circle-center{
+    animation-delay: .4s;
+}
+
+.loading-circle-right{
+    animation-delay: .8s;
+}
+
+
+/*自我介绍的样式*/
+.intro {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 450px;
+    z-index: 10;
+  }
+  
+  .intro-title {
+    font-size: 50px;
+    margin-bottom: 20px;
+    padding: 5px 20px;
+    border: 3px solid #333;
+    background: #fff;
+  }
+  
+  .intro-desc {
+    font-size: 30px;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    border: 3px solid #333;
+    background: #fff;
+    width: 70%;
+    margin: 20px auto;
+  }
+  
+  .intro-button {
+    border: none;
+    width: 130px;
+    height: 60px;
+    font-size: 24px;
+    border: 2px solid #333;
+    background: #fff;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .intro-tip {
+    color: #f1f1f1;
+    font-size: 22px;
+    animation: shine 1s infinite;
+  }
+
+/*照搬逻辑 创建项目展示的样式*/
+  .layer-horizontal .project {
+    position: absolute;
+    top: 36%;
+    margin-top: -200px;
+    width: 500px;
+    height: 500px;
+    background: url(../images/project.png);
+    background-size: cover;
+    box-sizing: border-box;
+    padding: 20px;
+  }
+  
+  .layer-horizontal .project-title {
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .layer-horizontal .project-img {
+    position: absolute;
+    width: 120px;
+    height: 210px;
+    background: #ddd;
+    border: 1px solid #dfdfdf;
+    left: 100px;
+    top: 100px;
+  }
+  
+  .layer-horizontal .project-desc {
+    padding-left: 220px;
+  }
+  
+  .layer-horizontal .project-1 {
+    left: 6000px;
+  }
+  
+  
+  .layer-horizontal .project-2 {
+    left: 8000px;
+  }
+  
+  
+  .layer-horizontal .block {
+    position: absolute;
+    bottom: 80px;
+    width: 300px;
+    height: 220px;
+    background: url(../images/pipe.png) no-repeat;
+    background-size: cover;
+  }
+  
+  .layer-horizontal .block1 {
+    left: 2000px;
+    
+  }
+  .layer-horizontal .block2 {
+    left: 4000px;
+    height: 160px;
+  }
+
+
